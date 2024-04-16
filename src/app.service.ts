@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getDataModel(): string {
-    // Implémentez la logique pour récupérer les informations du modèle de données
+
     const dataModel = {
       clients: {
         fields: ['name', 'firstName', 'email', 'creationDate'],
