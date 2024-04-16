@@ -1,11 +1,19 @@
+import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Client, ClientDocument } from 'schemas/client.schema';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 
 @Injectable()
 export class ClientService {
-  create(createClientDto: CreateClientDto) {
-    return 'This action adds a new client';
+  constructor(
+    @InjectModel(Client.name) private clientModel: Model<ClientDocument>,
+  ) { }
+
+  async create(createClientDto: CreateClientDto): Promise<Client> {
+    const createdClient = new this.clientModel(createClientDto);
+    return createdClient.save();
   }
 
   findAll() {
