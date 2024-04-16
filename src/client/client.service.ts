@@ -17,7 +17,7 @@ export class ClientService {
   }
 
   findAll() {
-    return `This action returns all client`;
+    return ['client1', 'client2'];
   }
 
   findOne(id: number) {
