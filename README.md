@@ -32,6 +32,13 @@
 $ npm install
 ```
 
+## Environment
+
+Create a local .env in the root directory as the following
+```bash
+MONGODB_URI=mongodb+srv://user:<password>@cluster0.fgexxap.mongodb.net/donnees
+```
+
 ## Running the app
 
 ```bash
