@@ -16,19 +16,19 @@ export class ClientService {
     return createdClient.save();
   }
 
-  findAll() {
-    return ['client1', 'client2'];
+  async findAll(): Promise<Client[]> {
+    return this.clientModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} client`;
+  async findOne(id: string): Promise<Client | null> {
+    return this.clientModel.findById(id).exec();
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async update(id: string, updateClientDto: UpdateClientDto): Promise<Client | null> {
+    return this.clientModel.findByIdAndUpdate(id, updateClientDto, { new: true }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  async remove(id: string): Promise<Client | null> {
+    return this.clientModel.findByIdAndDelete(id).exec();
   }
 }

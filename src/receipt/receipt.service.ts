@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateReceiptDto } from './dto/create-receipt.dto';
 import { UpdateReceiptDto } from './dto/update-receipt.dto';
+import { Receipt } from './entities/receipt.entity';
+import { ReceiptDocument } from 'schemas/receipt.schema';
 
 @Injectable()
 export class ReceiptService {
-  create(createReceiptDto: CreateReceiptDto) {
-    return 'This action adds a new receipt';
+  constructor(
+    @InjectModel(Receipt.name) private receiptModel: Model<ReceiptDocument>,
+  ) {}
+
+  async create(createReceiptDto: CreateReceiptDto): Promise<Receipt> {
+    const createdReceipt = new this.receiptModel(createReceiptDto);
+    return createdReceipt.save();
   }
 
-  findAll() {
-    return `This action returns all receipt`;
+  async findAll(): Promise<Receipt[]> {
+    return this.receiptModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} receipt`;
+  async findOne(id: string): Promise<Receipt | null> {
+    return this.receiptModel.findById(id).exec();
   }
 
-  update(id: number, updateReceiptDto: UpdateReceiptDto) {
-    return `This action updates a #${id} receipt`;
+  async update(id: string, updateReceiptDto: UpdateReceiptDto): Promise<Receipt | null> {
+    return this.receiptModel.findByIdAndUpdate(id, updateReceiptDto, { new: true }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} receipt`;
+  async remove(id: string): Promise<Receipt | null> {
+    return this.receiptModel.findByIdAndDelete(id).exec();
   }
 }

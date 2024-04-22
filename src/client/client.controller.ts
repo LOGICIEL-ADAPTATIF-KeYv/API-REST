@@ -3,6 +3,7 @@ import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Client } from './entities/client.entity';
 
 @Controller('client')
 @ApiTags('clients') 
@@ -20,7 +21,7 @@ export class ClientController {
   @Get()
   @ApiOperation({ summary: 'Récupérer tous les clients', description: 'Récupère la liste de tous les clients enregistrés' })
   @ApiResponse({ status: 200, description: 'Liste de clients récupérée avec succès' })
-  findAll(): string[]{
+  findAll(): Promise<Client[]>{
     return this.clientService.findAll();
   }
 
@@ -30,7 +31,7 @@ export class ClientController {
   @ApiResponse({ status: 200, description: 'Client récupéré avec succès' })
   @ApiResponse({ status: 404, description: 'Client non trouvé' })
   findOne(@Param('id') id: string) {
-    return this.clientService.findOne(+id);
+    return this.clientService.findOne(id);
   }
 
   @Patch(':id')
@@ -40,7 +41,7 @@ export class ClientController {
   @ApiResponse({ status: 200, description: 'Client mis à jour avec succès' })
   @ApiResponse({ status: 404, description: 'Client non trouvé' })
   update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientService.update(+id, updateClientDto);
+    return this.clientService.update(id, updateClientDto);
   }
 
   @Delete(':id')
@@ -49,6 +50,6 @@ export class ClientController {
   @ApiResponse({ status: 200, description: 'Client supprimé avec succès' })
   @ApiResponse({ status: 404, description: 'Client non trouvé' })
   remove(@Param('id') id: string) {
-    return this.clientService.remove(+id);
+    return this.clientService.remove(id);
   }
 }

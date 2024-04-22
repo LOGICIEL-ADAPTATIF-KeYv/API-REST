@@ -31,7 +31,7 @@ export class ProductController {
   @ApiResponse({ status: 200, description: 'Produit récupéré avec succès' })
   @ApiResponse({ status: 404, description: 'Produit non trouvé' })
   findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+    return this.productService.findOne(id);
   }
 
   @Patch(':id')
@@ -41,7 +41,7 @@ export class ProductController {
   @ApiResponse({ status: 200, description: 'Produit mis à jour avec succès' })
   @ApiResponse({ status: 404, description: 'Produit non trouvé' })
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(+id, updateProductDto);
+    return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':id')
@@ -50,6 +50,6 @@ export class ProductController {
   @ApiResponse({ status: 200, description: 'Produit supprimé avec succès' })
   @ApiResponse({ status: 404, description: 'Produit non trouvé' })
   remove(@Param('id') id: string) {
-    return this.productService.remove(+id);
+    return this.productService.remove(id);
   }
 }

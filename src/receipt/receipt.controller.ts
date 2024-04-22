@@ -31,7 +31,7 @@ export class ReceiptController {
   @ApiResponse({ status: 200, description: 'Facture récupérée avec succès' })
   @ApiResponse({ status: 404, description: 'Facture non trouvée' })
   findOne(@Param('id') id: string) {
-    return this.receiptService.findOne(+id);
+    return this.receiptService.findOne(id);
   }
 
   @Patch(':id')
@@ -41,7 +41,7 @@ export class ReceiptController {
   @ApiResponse({ status: 200, description: 'Facture mise à jour avec succès' })
   @ApiResponse({ status: 404, description: 'Facture non trouvée' })
   update(@Param('id') id: string, @Body() updateReceiptDto: UpdateReceiptDto) {
-    return this.receiptService.update(+id, updateReceiptDto);
+    return this.receiptService.update(id, updateReceiptDto);
   }
 
   @Delete(':id')
@@ -50,6 +50,6 @@ export class ReceiptController {
   @ApiResponse({ status: 200, description: 'Facture supprimée avec succès' })
   @ApiResponse({ status: 404, description: 'Facture non trouvée' })
   remove(@Param('id') id: string) {
-    return this.receiptService.remove(+id);
+    return this.receiptService.remove(id);
   }
 }
